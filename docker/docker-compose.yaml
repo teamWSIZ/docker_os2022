@@ -1,0 +1,36 @@
+version: '3.7'
+
+services:
+
+  db:
+    image: postgres:15.1-alpine3.17
+    restart: always
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_PASSWORD: wsiz#1234
+
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - "8080:8080"
+
+  angel:
+    image: wsiz/simpleapp:0.0.1-alpine
+    restart: always
+    ports:
+      - "5550:5000"
+    environment:
+      SOME_PASSWD: 'kadabra1'
+
+
+
+  backend:
+    image: wsiz/backend:0.0.6-alpine
+    restart: always
+    ports:
+      - "5100:5005"
+    environment:
+      SOME_PASSWD: 'kadabra1'
+      DB_HOST: 'db'
